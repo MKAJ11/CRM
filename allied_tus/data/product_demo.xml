@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Service products -->
+        <record id="product_product_epoxy" model="product.product">
+            <field name="name">Epoxy</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">Epoxy0002</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_seam_tape" model="product.product">
+            <field name="name">Seam Tape</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">SeamTape0004</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_speed_flex_static_mixer" model="product.product">
+            <field name="name">SpeedFlex Static Mixer Tip</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">SpeedFlex0005</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_floor_sinks_flanges" model="product.product">
+            <field name="name">Floor Sinks Flanges</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">Floor0007</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_floor_drain_clean_flanges" model="product.product">
+            <field name="name">Floor Drain / Clean Out Flanges</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">FloorDrain0008</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_trench_grease_flanges" model="product.product">
+            <field name="name">Trench / Grease Trap Flanges</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">Trench0009</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_screws_anchors" model="product.product">
+            <field name="name">#10 Screws/anchors, 25 sets per bag</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">Screws0009</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_e6100_tubes" model="product.product">
+            <field name="name">E6100, case of 12 tubes</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">Case0010</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <record id="product_product_sqft_incl" model="product.product">
+            <field name="name">SQ FT INCL BASE</field>
+            <field name="type">product</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">SQFTINCL0010</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+    </data>
+</odoo>

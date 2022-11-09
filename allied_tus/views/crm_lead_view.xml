@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_crm_lead_form_inherits" model="ir.ui.view">
+            <field name="name">view.crm.lead.form.inherits</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="create_estimate_line"
+                            string="Create Estimate Line"
+                            type="object" groups="sales_team.group_sale_salesman"
+                    />
+                    <button name="create_estimate_quotation"
+                            string="Create Sales Estimate"
+                            type="object" groups="sales_team.group_sale_salesman"/>
+                </xpath>
+                <xpath expr="//sheet/group[1]" position="replace">
+                    <group>
+                        <group name="lead_partner" attrs="{'invisible': [('type', '=', 'opportunity')]}">
+                            <div>
+                                <h3>
+                                    Project Location
+                                </h3>
+                            </div>
+                            <field name="team_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   context="{
+                                        'default_name': contact_name,
+                                        'default_title': title,
+                                        'default_street': street,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'show_vat': True
+                                    }" groups="base.group_no_one"/>
+                            <field name="partner_name"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"
+                                       options='{"no_open": True}'/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                            <field name="lang_id"/>
+                        </group>
+
+                        <group name="opportunity_partner" attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <div>
+                                <h3>
+                                    Project Location
+                                </h3>
+                            </div>
+                            <field name="team_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="partner_id"
+                                   widget="res_partner_many2one"
+                                   string="Customer"
+                                   context="{'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                                        'default_name': contact_name or partner_name,
+                                        'default_street': street,
+                                        'default_is_company': type == 'opportunity' and contact_name == False,
+                                        'default_company_name': type == 'opportunity' and partner_name,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_title': title,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'show_vat': True,
+                                    }"
+                            />
+                            <field name="subx_region_id"/>
+                            <field name="contact_name"/>
+                            <label for="street_page_lead" string="Jobsite Address"/>
+                            <div class="o_address_format">
+                                <field name="street" id="street_page_lead" placeholder="Street..."
+                                       class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"
+                                       options='{"no_open": True}'/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="is_blacklisted" invisible="1"/>
+                            <field name="partner_is_blacklisted" invisible="1"/>
+                            <field name="phone_blacklisted" invisible="1"/>
+                            <field name="mobile_blacklisted" invisible="1"/>
+                            <field name="email_state" invisible="1"/>
+                            <field name="phone_state" invisible="1"/>
+                            <field name="partner_email_update" invisible="1"/>
+                            <field name="partner_phone_update" invisible="1"/>
+                        </group>
+                        <group name="lead_info" attrs="{'invisible': [('type', '=', 'opportunity')]}">
+                            <field name="is_blacklisted" invisible="1"/>
+                            <field name="phone_blacklisted" invisible="1"/>
+                            <field name="email_state" invisible="1"/>
+                            <field name="phone_state" invisible="1"/>
+                            <field name="partner_email_update" invisible="1"/>
+                            <field name="partner_phone_update" invisible="1"/>
+                            <label for="email_from_group_lead_info" class="oe_inline"/>
+                            <div class="o_row o_row_readonly">
+                                <button name="mail_action_blacklist_remove" class="fa fa-ban text-danger"
+                                        title="This email is blacklisted for mass mailings. Click to unblacklist."
+                                        type="object" context="{'default_email': email_from}" groups="base.group_user"
+                                        attrs="{'invisible': [('is_blacklisted', '=', False)]}"/>
+                                <field name="email_from" id="email_from_group_lead_info" string="Email" widget="email"/>
+                                <span class="fa fa-exclamation-triangle text-warning oe_edit_only"
+                                      title="By saving this change, the customer email will also be updated."
+                                      attrs="{'invisible': [('partner_email_update', '=', False)]}"/>
+                            </div>
+                            <field name="email_cc" groups="base.group_no_one"/>
+                            <field name="function"/>
+                            <label for="phone_group_lead_info" class="oe_inline"/>
+                            <div class="o_row o_row_readonly">
+                                <button name="phone_action_blacklist_remove" class="fa fa-ban text-danger"
+                                        title="This phone number is blacklisted for SMS Marketing. Click to unblacklist."
+                                        type="object" context="{'default_phone': phone}" groups="base.group_user"
+                                        attrs="{'invisible': [('phone_blacklisted', '=', False)]}"/>
+                                <field name="phone" id="phone_group_lead_info" widget="phone"/>
+                                <span class="fa fa-exclamation-triangle text-warning oe_edit_only"
+                                      title="By saving this change, the customer phone number will also be updated."
+                                      attrs="{'invisible': [('partner_phone_update', '=', False)]}"/>
+                            </div>
+                            <label for="mobile" class="oe_inline"/>
+                            <div class="o_row o_row_readonly">
+                                <button name="phone_action_blacklist_remove" class="fa fa-ban text-danger"
+                                        title="This phone number is blacklisted for SMS Marketing. Click to unblacklist."
+                                        type="object" context="{'default_phone': mobile}" groups="base.group_user"
+                                        attrs="{'invisible': [('mobile_blacklisted', '=', False)]}"/>
+                                <field name="mobile" widget="phone" string="Mobile"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <div>
+                                <h3>
+                                    Contractor Information
+                                </h3>
+                            </div>
+                            <field name="date_deadline" string="Scheduled Ship"/>
+                            <field name="project_type"/>
+                            <field name="process_id"/>
+                            <field name="procurement_id"/>
+                            <field name="declared_sqft_number"/>
+                            <field name="color"/>
+                            <field name="priority" widget="priority" invisible="1"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="project_contact_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="user_id" invisible="1"
+                                   context="{'default_sales_team_id': team_id}" widget="many2one_avatar_user"/>
+                            <field name="type" invisible="1"/>
+                        </group>
+                        <group name="lead_priority" attrs="{'invisible': [('type', '=', 'opportunity')]}">
+                            <field name="priority" widget="priority"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True}"/>
+                        </group>
+                        <group name="opportunity_info" attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <field name="lost_reason" attrs="{'invisible': [('active', '=', True)]}"/>
+                            <field name="date_conversion" invisible="1"/>
+
+                            <field name="user_company_ids" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="SBUX Key" name="sbux_key">
+                        <group>
+                            <group string="">
+                                <field name="is_subx" invisible="1"/>
+                                <field name="subx_region_id" attrs="{'invisible': [('is_subx', '=', False)]}"/>
+                                <field name="procurement_id"/>
+                                <field name="distributor_id" domain="[('is_distributor','=',True)]"/>
+                                <field name="general_contractor_id"
+                                       domain="[('is_contractor','=',True)]"/>
+                                <field name="installer_id" domain="[('is_installers','=',True)]"/>
+                                <field name="deadline"/>
+                            </group>
+                            <group string="Store Info.">
+                                <field name="is_subx" invisible="1"/>
+                                <field name="store" attrs="{'invisible': [('is_subx', '=', False)]}"/>
+                                <field name="cpn" attrs="{'invisible': [('is_subx', '=', False)]}"/>
+                                <field name="quoted_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Install Data" name="install_data">
+                                <field name="is_subx" invisible="1"/>
+                                <field name="subx_po" attrs="{'invisible': [('is_subx', '=', False)]}"/>
+                                <field name="gc_po"/>
+                                <field name="installation_date"/>
+                                <field name="team_id"/>
+                                <field name="leader_id"/>
+                            </group>
+                            <group string="Location" name="location_info">
+                                <label for="opp_street" attrs="{'invisible': [('general_contractor_id', '=', False)]}"
+                                       string="Address"/>
+                                <div class="o_address_format"
+                                     attrs="{'invisible': [('general_contractor_id', '=', False)]}">
+                                    <field name="opp_street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="opp_street2" placeholder="Street 2..." class="o_address_street"/>
+                                </div>
+                                <field name="opp_city" placeholder="City" class="o_address_city"/>
+                                <field name="opp_state_id" class="o_address_state" placeholder="State"
+                                       options='{"no_open": True}'/>
+                                <field name="opp_country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+
+                            </group>
+                            <group string="Scope" name="scope_info">
+                                <field name="type"/>
+                                <field name="sqft"/>
+                                <field name="material_sqft"/>
+                                <field name="material_price"/>
+                                <field name="color"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+
+                            </group>
+                            <group string="Quality Control" name="quality_control" invisible="1">
+                                <field name="co_reason"/>
+                                <field name="qc_concerns"/>
+                            </group>
+                        </group>
+
+                    </page>
+                    <page string="Shipping Key" name="sbux_key">
+                        <group>
+                            <group>
+                                <div>
+                                    <group string="Shipping Date">
+                                        <field name="shipping_deadline"/>
+                                        <field name="shipping_delivery"/>
+                                    </group>
+                                    <group string="Site Info">
+                                        <field name="store_number"/>
+                                        <field name="site_general_contractor_id"/>
+                                        <field name="site_installer_id"/>
+                                        <label for="site_opp_street"
+                                               attrs="{'invisible': [('general_contractor_id', '=', False)]}"
+                                               string="Address"/>
+                                        <div class="o_address_format"
+                                             attrs="{'invisible': [('general_contractor_id', '=', False)]}">
+                                            <field name="site_opp_street" placeholder="Street..."
+                                                   class="o_address_street"/>
+                                            <field name="site_opp_street2" placeholder="Street 2..."
+                                                   class="o_address_street"/>
+                                        </div>
+                                        <field name="site_opp_city"/>
+                                        <field name="site_opp_state_id"/>
+                                        <field name="site_opp_country_id"/>
+                                    </group>
+                                </div>
+                            </group>
+                            <group string="Shipping Checklist Date" rowspan="2">
+                                <field name="is_credit_file"/>
+                                <field name="is_signed_estimate"/>
+                                <field name="is_materials_wo"/>
+                                <field name="is_flanges_wo"/>
+                                <field name="delivery_contact_info"/>
+                                <field name="freight_tracking_info"/>
+                                <field name="freight_address"/>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                            </group>
+                            <group string="Billing List">
+
+                                <field name="is_quick_books"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Order Info" name="other_info">
+                        <group>
+                            <group>
+                                <field name="general_contractor_other_id"/>
+                                <field name="company_other_id"/>
+                                <field name="contact_other_id"/>
+                                <field name="po_number"/>
+                                <field name="req_delivery_date"/>
+                                <field name="req_ship_date"/>
+                            </group>
+                            <group>
+                                <field name="installation_date"/>
+                                <field name="is_credit_file"/>
+                                <field name="is_flanges_wo"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Shipping Info">
+                        <group>
+                            <group>
+                                <field name="date_deadline" string="Scheduled Ship"/>
+                                <field name="partner_shipping_id"/>
+                                <field name="actual_ship_date"/>
+                                <field name="tracking_info"/>
+                                <field name="is_bol"/>
+                                <field name="is_flanges_pallet"/>
+                                <field name="flanges_tracking_info"/>
+                            </group>
+                            <group>
+                                <label string="Delivery Contact" for="ship_name"/>
+                                <field name="ship_name"/>
+                                <field name="ship_email" widget="email"/>
+                                <field name="ship_phone" widget="phone"/>
+                                <field name="fedex_price"/>
+                                <field name="shipping_broker"/>
+                                <field name="truck_line"/>
+                                <field name="shipping_cost"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Bidding Contractors">
+                        <label for="contractor_line_ids" string="Contractors"/>
+                        <field name="contractor_line_ids">
+                            <tree editable="bottom">
+                                <field name="company_id" invisible="1"/>
+                                <field name="contractor_id"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="email" widget="email"/>
+                                <field name="due_date"/>
+                                <field name="is_notified"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Quality Control">
+
+                    </page>
+                    <page string="Scope">
+                        <group>
+                            <group>
+                                <field name="scope_id"/>
+                                <field name="job_days"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Estimator">
+                        <group>
+                            <group>
+                                <field name="estimator_color" invisible="1"/>
+                                <field name="sqft"/>
+                                <field name="liner_ft"/>
+                                <field name="base_height"/>
+                            </group>
+                            <group>
+                                <field name="project_type"/>
+                                <field name="floor_sinks"/>
+                                <field name="floor_drains"/>
+                                <field name="trench_drains"/>
+                            </group>
+                        </group>
+                        <group name="martial_list" string="Materials Order List">
+                            <group>
+                                <field name="sheets"/>
+                                <field name="extra_sheets"/>
+                                <field name="epoxy"/>
+                                <field name="speed_flex"/>
+                                <field name="seam_tape"/>
+                                <field name="speed_flex_static"/>
+                                <field name="base_trim"/>
+                                <field name="base_screws"/>
+                                <field name="threshold"/>
+                                <field name="floor_sink_flang"/>
+                                <field name="floor_drain"/>
+                                <field name="floor_trench"/>
+                                <field name="number_10_screws"/>
+                                <field name="e6100_tube"/>
+                                <field name="sqft_incl_base"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="material_price" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="fedex_parcel" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_material_price" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <group>
+                                <field name="sheet_product_id"/>
+                                <p>
+                                    <br/>
+                                </p>
+                                <field name="epoxy_product_id"/>
+                                <field name="speed_flex_product_id"/>
+                                <field name="seam_tape_product_id"/>
+                                <field name="speed_flex_mixer_product_id"/>
+                                <p>
+                                    <br/>
+                                </p>
+                                <field name="base_cape_product_id"/>
+                                <p>
+                                    <br/>
+                                </p>
+                                <field name="floor_sinks_product_id"/>
+                                <field name="floor_drains_product_id"/>
+                                <field name="floor_trench_product_id"/>
+                                <field name="number_10_screw_product_id"/>
+                                <field name="e_1600_product_id"/>
+                                <field name="sqft_product_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="estimate_line_custom_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="product_description"/>
+                                    <field name="product_uom_qty" sum="Total Quantity"/>
+                                    <field name="product_uom"/>
+                                    <field name="price_unit" sum="Total Unit Price"/>
+                                    <field name="total_price" sum="Total Price"/>
+                                    <field name="crmlead_custom_id" invisible="1"/>
+                                    <field name="estimate_custom_id"/>
+                                    <field name="estimate_line_custom_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ecogrip_process_view" model="ir.ui.view">
+            <field name="name">ecogrip.process.view</field>
+            <field name="model">allied.process</field>
+            <field name="arch" type="xml">
+                <form string="Process">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="ecogrip_process_view_tree" model="ir.ui.view">
+            <field name="name">ecogrip.process.view.tree</field>
+            <field name="model">allied.process</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_allied_process_form_action" model="ir.actions.act_window">
+            <field name="name">Allied Process</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">allied.process</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+                id="menu_allied_process"
+                name="EcoGrip Process"
+                sequence="6"
+                parent="crm.menu_crm_config_lead"
+                action="view_allied_process_form_action"
+        />
+
+        <!-- Subx Region -->
+
+        <record id="subx_region_view" model="ir.ui.view">
+            <field name="name">subx.region.view</field>
+            <field name="model">subx.region</field>
+            <field name="arch" type="xml">
+                <form string="Subx Region">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="subx_region_view_tree" model="ir.ui.view">
+            <field name="name">subx.region.view.tree</field>
+            <field name="model">subx.region</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_subx_region_action" model="ir.actions.act_window">
+            <field name="name">Subx Region</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">subx.region</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+                id="menu_subx_region"
+                name="SBUX Region"
+                sequence="10"
+                parent="crm.menu_crm_config_lead"
+                action="view_subx_region_action"
+        />
+
+        <!-- Allied Type -->
+
+        <record id="allied_type_view" model="ir.ui.view">
+            <field name="name">allied.type.view</field>
+            <field name="model">allied.type</field>
+            <field name="arch" type="xml">
+                <form string="Allied Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="allied_type_view_tree" model="ir.ui.view">
+            <field name="name">allied.type.view.tree</field>
+            <field name="model">allied.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_allied_type_action" model="ir.actions.act_window">
+            <field name="name">Allied Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">allied.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+                id="menu_allied_type"
+                name="Allied Type"
+                sequence="15"
+                parent="crm.menu_crm_config_lead"
+                action="view_allied_type_action"
+        />
+
+        <!-- Allied scope -->
+
+        <record id="allied_scope_view" model="ir.ui.view">
+            <field name="name">allied.scope.view</field>
+            <field name="model">allied.scope</field>
+            <field name="arch" type="xml">
+                <form string="Allied Scope">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="allied_scope_view_tree" model="ir.ui.view">
+            <field name="name">allied.scope.view.tree</field>
+            <field name="model">allied.scope</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_allied_scope_action" model="ir.actions.act_window">
+            <field name="name">Allied Scope</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">allied.scope</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+                id="menu_allied_scope"
+                name="Allied Scope"
+                sequence="20"
+                parent="crm.menu_crm_config_lead"
+                action="view_allied_scope_action"
+        />
+    </data>
+</odoo>

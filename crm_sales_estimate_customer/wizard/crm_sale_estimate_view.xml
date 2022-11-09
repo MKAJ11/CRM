@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_sale_estimate_wizard_view" model="ir.ui.view">
+            <field name="name">crmsale.estimate.wizard.cust.form</field>
+            <field name="model">crmsale.estimate.wizard.cust</field>
+            <field name="arch" type="xml">
+                <form string="Create Sales Estimate Wizard" name="crm_sale_estimate_wizard">
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="create_sale_estimate_custom" type="object" string="Create Now" class="btn-primary"/>
+                        or
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>            
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_create_crmsale_estimate_wizard_custom">
+            <field name="name">Create Sales Estimates From CRM</field>
+            <field name="res_model">crmsale.estimate.wizard.cust</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_sale_estimate_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</odoo>

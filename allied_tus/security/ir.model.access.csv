@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_allied_process,allied.process,model_allied_process,,1,1,1,1
+access_subx_region,subx.region,model_subx_region,,1,1,1,1
+access_allied_type,allied.type,model_allied_type,,1,1,1,1
+access_allied_scope,allied.scope,model_allied_scope,,1,1,1,1
+access_contractor_line,contractor.line,model_contractor_line,,1,1,1,1
+access_procurement_data,procurement.data,model_procurement_data,,1,1,1,1
+

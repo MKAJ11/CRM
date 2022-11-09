@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_partner_supplier_form" model="ir.ui.view">
+            <field name="name">res.partner.supplier</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="user_configuration" string="Configuration">
+                        <group string="User Configuration">
+                            <group>
+                                <field name="sheet_price"/>
+                                <field name="is_distributor"/>
+                                <field name="is_contractor"/>
+                                <field name="is_installers"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

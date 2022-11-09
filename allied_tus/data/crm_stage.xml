@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="crm.stage" id="crm.stage_lead1">
+        <field name="name">Quote</field>
+        <field name="sequence">1</field>
+    </record>
+    <record model="crm.stage" id="crm.stage_lead2">
+        <field name="name">Submitted</field>
+        <field name="sequence">2</field>
+    </record>
+    <record model="crm.stage" id="stage_confirm_schedule">
+        <field name="name">Confirm Schedule</field>
+        <field name="sequence">3</field>
+    </record>
+    <record model="crm.stage" id="stage_pending_ship">
+        <field name="name">Pending Ship</field>
+        <field name="sequence">4</field>
+    </record>
+    <record model="crm.stage" id="stage_shipped">
+        <field name="name">Shipped</field>
+        <field name="sequence">5</field>
+    </record>
+    <record model="crm.stage" id="crm.stage_lead4">
+        <field name="name">Completed</field>
+        <field name="fold" eval="False"/>
+        <field name="is_won">True</field>
+        <field name="sequence">70</field>
+    </record>
+</odoo>
