@@ -182,7 +182,7 @@
                                    options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group name="opportunity_info" attrs="{'invisible': [('type', '=', 'lead')]}">
-                            <field name="lost_reason" attrs="{'invisible': [('active', '=', True)]}"/>
+                            <field name="lost_reason_id" attrs="{'invisible': [('active', '=', True)]}"/>
                             <field name="date_conversion" invisible="1"/>
 
                             <field name="user_company_ids" invisible="1"/>
