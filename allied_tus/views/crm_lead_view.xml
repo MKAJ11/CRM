@@ -242,7 +242,6 @@
                     <page string="Shipping Key" name="sbux_key">
                         <group>
                             <group>
-                                <div>
                                     <group string="Shipping Date">
                                         <field name="shipping_deadline"/>
                                         <field name="shipping_delivery"/>
@@ -265,7 +264,6 @@
                                         <field name="site_opp_state_id"/>
                                         <field name="site_opp_country_id"/>
                                     </group>
-                                </div>
                             </group>
                             <group string="Shipping Checklist Date" rowspan="2">
                                 <field name="is_credit_file"/>
@@ -275,7 +273,6 @@
                                 <field name="delivery_contact_info"/>
                                 <field name="freight_tracking_info"/>
                                 <field name="freight_address"/>
-
                             </group>
                         </group>
                         <group>
