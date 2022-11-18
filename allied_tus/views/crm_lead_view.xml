@@ -9,8 +9,7 @@
                 <xpath expr="//header" position="inside">
                     <button name="create_estimate_line"
                             string="Create Estimate Line"
-                            type="object" groups="sales_team.group_sale_salesman"
-                    />
+                            type="object" groups="sales_team.group_sale_salesman"/>
                     <button name="create_estimate_quotation"
                             string="Create Sales Estimate"
                             type="object" groups="sales_team.group_sale_salesman"/>
@@ -317,7 +316,6 @@
                                 <field name="flanges_tracking_info"/>
                             </group>
                             <group>
-                                <label string="Delivery Contact" for="ship_name"/>
                                 <field name="ship_name"/>
                                 <field name="ship_email" widget="email"/>
                                 <field name="ship_phone" widget="phone"/>
