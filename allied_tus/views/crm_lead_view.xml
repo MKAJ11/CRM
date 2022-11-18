@@ -316,7 +316,7 @@
                                 <field name="flanges_tracking_info"/>
                             </group>
                             <group>
-                                <field name="ship_name"/>
+                                <field name="ship_name" string="Delivery Contact"/>
                                 <field name="ship_email" widget="email"/>
                                 <field name="ship_phone" widget="phone"/>
                                 <field name="fedex_price"/>
