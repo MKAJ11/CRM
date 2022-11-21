@@ -9,15 +9,15 @@
                 <xpath expr="//header" position="inside">
                     <button name="create_estimate_line"
                             string="Create Estimate Line"
-                            type="object" groups="sales_team.group_sale_salesman"
-                    />
+                            type="object" groups="sales_team.group_sale_salesman"/>
                     <button name="create_estimate_quotation"
                             string="Create Sales Estimate"
                             type="object" groups="sales_team.group_sale_salesman"/>
                 </xpath>
                 <xpath expr="//sheet/group[1]" position="replace">
                     <group>
-                        <group name="lead_partner" attrs="{'invisible': [('type', '=', 'opportunity')]}" string="Project Location">
+                        <group name="lead_partner" attrs="{'invisible': [('type', '=', 'opportunity')]}"
+                               string="Project Location">
                             <field name="team_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="partner_id" widget="res_partner_many2one"
                                    context="{
@@ -53,7 +53,8 @@
                             <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
                             <field name="lang_id"/>
                         </group>
-                        <group name="opportunity_partner" attrs="{'invisible': [('type', '=', 'lead')]}" string="Project Location">
+                        <group name="opportunity_partner" attrs="{'invisible': [('type', '=', 'lead')]}"
+                               string="Project Location">
                             <field name="team_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="partner_id"
                                    widget="res_partner_many2one"
@@ -242,32 +243,28 @@
                     </page>
                     <page string="Shipping Key" name="sbux_key">
                         <group>
-                            <group>
-                                <div>
-                                    <group string="Shipping Date">
-                                        <field name="shipping_deadline"/>
-                                        <field name="shipping_delivery"/>
-                                    </group>
-                                    <group string="Site Info">
-                                        <field name="store_number"/>
-                                        <field name="site_general_contractor_id"/>
-                                        <field name="site_installer_id"/>
-                                        <label for="site_opp_street"
-                                               attrs="{'invisible': [('general_contractor_id', '=', False)]}"
-                                               string="Address"/>
-                                        <div class="o_address_format"
-                                             attrs="{'invisible': [('general_contractor_id', '=', False)]}">
-                                            <field name="site_opp_street" placeholder="Street..."
-                                                   class="o_address_street"/>
-                                            <field name="site_opp_street2" placeholder="Street 2..."
-                                                   class="o_address_street"/>
-                                        </div>
-                                        <field name="site_opp_city"/>
-                                        <field name="site_opp_state_id"/>
-                                        <field name="site_opp_country_id"/>
-                                    </group>
-                                </div>
+                            <group string="Shipping Date">
+                                <field name="shipping_deadline"/>
+                                <field name="shipping_delivery"/>
                             </group>
+                            <group string="Site Info">
+                                    <field name="store_number"/>
+                                    <field name="site_general_contractor_id"/>
+                                    <field name="site_installer_id"/>
+                                    <label for="site_opp_street"
+                                           attrs="{'invisible': [('general_contractor_id', '=', False)]}"
+                                           string="Address"/>
+                                    <div class="o_address_format"
+                                         attrs="{'invisible': [('general_contractor_id', '=', False)]}">
+                                        <field name="site_opp_street" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="site_opp_street2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                    </div>
+                                    <field name="site_opp_city"/>
+                                    <field name="site_opp_state_id"/>
+                                    <field name="site_opp_country_id"/>
+                                </group>
                             <group string="Shipping Checklist Date" rowspan="2">
                                 <field name="is_credit_file"/>
                                 <field name="is_signed_estimate"/>
@@ -276,15 +273,11 @@
                                 <field name="delivery_contact_info"/>
                                 <field name="freight_tracking_info"/>
                                 <field name="freight_address"/>
-
                             </group>
-                        </group>
-                        <group>
                             <group>
-                            </group>
-                            <group string="Billing List">
-
-                                <field name="is_quick_books"/>
+                                <group string="Billing List">
+                                    <field name="is_quick_books"/>
+                                </group>
                             </group>
                         </group>
                     </page>
@@ -317,8 +310,7 @@
                                 <field name="flanges_tracking_info"/>
                             </group>
                             <group>
-                                <label string="Delivery Contact" for="ship_name"/>
-                                <field name="ship_name"/>
+                                <field name="ship_name" string="Delivery Contact"/>
                                 <field name="ship_email" widget="email"/>
                                 <field name="ship_phone" widget="phone"/>
                                 <field name="fedex_price"/>
