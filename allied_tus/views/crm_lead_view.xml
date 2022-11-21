@@ -243,12 +243,11 @@
                     </page>
                     <page string="Shipping Key" name="sbux_key">
                         <group>
-                            <group>
-                                <group string="Shipping Date">
-                                    <field name="shipping_deadline"/>
-                                    <field name="shipping_delivery"/>
-                                </group>
-                                <group string="Site Info">
+                            <group string="Shipping Date">
+                                <field name="shipping_deadline"/>
+                                <field name="shipping_delivery"/>
+                            </group>
+                            <group string="Site Info">
                                     <field name="store_number"/>
                                     <field name="site_general_contractor_id"/>
                                     <field name="site_installer_id"/>
@@ -266,7 +265,6 @@
                                     <field name="site_opp_state_id"/>
                                     <field name="site_opp_country_id"/>
                                 </group>
-                            </group>
                             <group string="Shipping Checklist Date" rowspan="2">
                                 <field name="is_credit_file"/>
                                 <field name="is_signed_estimate"/>
@@ -276,8 +274,6 @@
                                 <field name="freight_tracking_info"/>
                                 <field name="freight_address"/>
                             </group>
-                        </group>
-                        <group>
                             <group>
                                 <group string="Billing List">
                                     <field name="is_quick_books"/>
